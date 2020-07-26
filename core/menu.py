@@ -2,9 +2,10 @@ import streamlit as st
 
 from .data_selector import DataSelector
 from .predict import Scorer
+from .home import Home
 
 
-class Sidebar:
+class MainMenu:
 
 	def __init__(self, API_URL, API_KEY):
 		self.API_KEY = API_KEY
@@ -20,10 +21,10 @@ class Sidebar:
 		return choices
 
 	def form(self):
-		page = st.sidebar.selectbox('Veuillez choisir une option', 
+		page = st.sidebar.selectbox('Veuillez choisir une option',
 									options=self.pages)
 		if page == self.pages[0]:
-			st.write('Non dispo')
+			return Home()
 		elif page == self.pages[1]:
 			return DataSelector(self.API_URL, self.API_KEY).form()
 		elif page == self.pages[2]:
