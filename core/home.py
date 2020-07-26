@@ -8,7 +8,7 @@ LOCAL_PATH = os.path.dirname(os.path.abspath(__file__))
 class Home:
 
     def __init__(self):
-        st.markdown(self.content)
+        st.markdown(self.content, unsafe_allow_html=True)
 
     @property
     def content(self):

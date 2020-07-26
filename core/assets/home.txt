@@ -1,4 +1,17 @@
+<img src="https://user.oc-static.com/upload/2019/02/25/15510866018677_logo%20projet%20fintech.png"
+alt="logo" width="250" style="display: block; margin-left: auto; margin-right: auto"/>
+
 Prêt à dépenser
 =================
 
 Sélectionnez une action dans le menu de gauche.
+---------------------------------------------------
+
+
+Ce dashboard a été construit dans le cadre du projet *Implémentez un modèle de scoring* du parcours Datascientist [@openclassrooms](https://openclassrooms.com/)
+
+
+Built with :heart: by [Thibault Grandjean](https://github.com/tgrandjean)
+
+[Source <img src="https://cdn.iconscout.com/icon/free/png-256/github-153-675523.png" alt="drawing" width="50"/>](https://github.com/tgrandjean/OC-home-credit-default-risk-dashboard)
+[API <img src="https://cdn.iconscout.com/icon/free/png-256/github-153-675523.png" alt="drawing" width="50"/>](https://github.com/tgrandjean/OC-home-credit-default-risk-API)
