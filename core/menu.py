@@ -3,6 +3,7 @@ import streamlit as st
 from .data_selector import DataSelector
 from .predict import Scorer
 from .home import Home
+from .explainer import ModelExplainer
 
 
 class MainMenu:
@@ -29,3 +30,5 @@ class MainMenu:
 			return DataSelector(self.API_URL, self.API_KEY).form()
 		elif page == self.pages[2]:
 			return Scorer(self.API_URL, self.API_KEY).form()
+		elif page == self.pages[3]:
+			return ModelExplainer(self.API_URL, self.API_KEY).form()

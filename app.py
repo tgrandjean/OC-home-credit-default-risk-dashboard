@@ -1,5 +1,6 @@
 import os
 import json
+import logging
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
