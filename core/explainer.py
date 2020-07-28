@@ -99,5 +99,7 @@ class ModelExplainer:
             = app['occupation_type']
         results.replace(np.nan, '', inplace=True)
         st.table(results.style.background_gradient(cmap=self.cmap).highlight_max(color='blue'))
-        st.info('Prediction du modèle : %f' % results['contrib'].sum())
-        st.info('Probabilité de remboursement : %f' % ((1 - results['contrib'].sum()) * 100))
+        st.info('Prédiction du modèle (Probabilité de non-remboursement) : %f'\
+            % (results['contrib'].sum() * 100))
+        st.info('Probabilité de remboursement : %f' %
+                        ((1 - results['contrib'].sum()) * 100))

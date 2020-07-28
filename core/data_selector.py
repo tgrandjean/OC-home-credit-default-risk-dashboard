@@ -71,6 +71,6 @@ class DataSelector:
 			res = self.__fetch(self.query)
 		slot = st.empty()
 		slot.dataframe(pd.DataFrame(res['results']))
-		for elt in res['results']:
-			if st.button('predict ' + str(elt['sk_id_curr'])):
-				st.sidebar.number_input('id application', value=elt['sk_id_curr'])
+		# for elt in res['results']:
+		# 	if st.button('predict ' + str(elt['sk_id_curr'])):
+		# 		st.sidebar.number_input('id application', value=elt['sk_id_curr'])
