@@ -15,7 +15,7 @@ class MainMenu:
 	@property
 	def pages(self):
 		choices = ['Accueil',
-				   'Exploratateur des demandes',
+				   'Explorateur des demandes',
 				   'Simulateur de crédit',
 				   'Explication de score'
 				   ]
