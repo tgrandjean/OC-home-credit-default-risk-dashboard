@@ -97,23 +97,25 @@ class ModelExplainer:
         base_val = {'contrib': explains['base_value']}
         base_val = pd.DataFrame(base_val, index=['base_value'])
         results = pd.concat([base_val, results], axis=0)
+        results['contrib'] = results['contrib'] * 100
+
         results.loc['OCCUPATION_TYPE', 'entrée du modèle'] \
             = app['occupation_type']
         results.replace(np.nan, '', inplace=True)
         results = results[['entrée du modèle', 'contrib']]
         results.rename(index={"DAYS_BIRTH": 'AGE'}, inplace=True)
         st.markdown("Dans la table ci-dessous, la somme des contributions"
-                    " correspond à la probabilité de non remboursent, "
+                    " correspond à la probabilité de non remboursement, "
                     "la *base value* est la moyenne pour un échantillon de 100"
-                    " demande de crédit."
+                    " demandes de crédit."
                     " Chaque variable augmente ou diminue alors cette valeur.")
         st.table(results.style.background_gradient(cmap=self.cmap)\
                  .apply(lambda x: ['background-color: cyan'],
                     subset=pd.IndexSlice['base_value', ['contrib']]))
-        st.info('Prédiction du modèle (Probabilité de non-remboursement) : %f'\
-            % (results['contrib'].sum() * 100))
-        st.info('Probabilité de remboursement : %f' %
-                        ((1 - results['contrib'].sum()) * 100))
+        st.info('Prédiction du modèle (Probabilité de non-remboursement) : %f %%'\
+            % (results['contrib'].sum()))
+        st.info('Probabilité de remboursement (100 - Prédiction du modèle) : %f %%' %
+                        ((100 - results['contrib'].sum())))
         st.markdown(":warning: Ces résultats sont obtenus sur un échantillon"
                     " de 100 demandes. Ces derniers peuvent donc varier entre"
                     " deux exécutions.")
