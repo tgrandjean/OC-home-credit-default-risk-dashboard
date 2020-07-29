@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from matplotlib import colors
 
+
 class ModelExplainer:
 
     def __init__(self, API_URL, API_KEY):
@@ -86,7 +87,8 @@ class ModelExplainer:
         input_data = pd.DataFrame(explains['input data'])
         results = results.join(input_data.T)
         results.rename(columns={0: "entrée du modèle"}, inplace=True)
-        occupation_type_keys = [x for x in contribs.keys() if x not in explains['input data'].keys()]
+        occupation_type_keys = [x for x in contribs.keys()
+                                 if x not in explains['input data'].keys()]
         occup_contrib = results.loc[occupation_type_keys].sum(axis=0)[0]
         results = results.drop(occupation_type_keys, axis=0)
         occup_contrib = pd.DataFrame({'contrib': occup_contrib},
@@ -98,8 +100,20 @@ class ModelExplainer:
         results.loc['OCCUPATION_TYPE', 'entrée du modèle'] \
             = app['occupation_type']
         results.replace(np.nan, '', inplace=True)
-        st.table(results.style.background_gradient(cmap=self.cmap).highlight_max(color='blue'))
+        results = results[['entrée du modèle', 'contrib']]
+        results.rename(index={"DAYS_BIRTH": 'AGE'}, inplace=True)
+        st.markdown("Dans la table ci-dessous, la somme des contributions"
+                    " correspond à la probabilité de non remboursent, "
+                    "la *base value* est la moyenne pour un échantillon de 100"
+                    " demande de crédit."
+                    " Chaque variable augmente ou diminue alors cette valeur.")
+        st.table(results.style.background_gradient(cmap=self.cmap)\
+                 .apply(lambda x: ['background-color: cyan'],
+                    subset=pd.IndexSlice['base_value', ['contrib']]))
         st.info('Prédiction du modèle (Probabilité de non-remboursement) : %f'\
             % (results['contrib'].sum() * 100))
         st.info('Probabilité de remboursement : %f' %
                         ((1 - results['contrib'].sum()) * 100))
+        st.markdown(":warning: Ces résultats sont obtenus sur un échantillon"
+                    " de 100 demandes. Ces derniers peuvent donc varier entre"
+                    " deux exécutions.")

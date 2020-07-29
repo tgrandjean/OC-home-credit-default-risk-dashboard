@@ -70,7 +70,9 @@ class DataSelector:
 			self.query['offset'] = page * 10
 			res = self.__fetch(self.query)
 		slot = st.empty()
-		slot.dataframe(pd.DataFrame(res['results']))
+		results = pd.DataFrame(res['results'])
+		results.rename(columns={"days_birth": "age"}, inplace=True)
+		slot.dataframe(results)
 		# for elt in res['results']:
 		# 	if st.button('predict ' + str(elt['sk_id_curr'])):
 		# 		st.sidebar.number_input('id application', value=elt['sk_id_curr'])
