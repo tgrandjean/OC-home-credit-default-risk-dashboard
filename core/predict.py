@@ -1,25 +1,15 @@
+"""Prediction's page"""
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import requests
 import streamlit as st
 import json
 
+from .base import Component
 
-class Scorer:
 
-	def __init__(self, API_URL, API_KEY):
-		self.API_URL = API_URL
-		self.API_KEY = API_KEY
-
-	@property
-	def headers(self):
-		return {'Content-Type': 'application/json',
-				'Authorization': 'Token ' + self.API_KEY}
-
-	def _fetch_application(self, id):
-		res = requests.get(self.API_URL + f'/applications/{id}',
-						   headers=self.headers)
-		return res.json()
+class Scorer(Component):
 
 	def _make_inference(self, data):
 		res = requests.post(self.API_URL + '/predict/',
@@ -68,7 +58,7 @@ class Scorer:
 
 		st.markdown('**Nombre de mensualités: %.1f **' % (app['amt_credit'] / app['amt_annuity']))
 		# Income proportion
-		f, ax = plt.subplots(1, figsize=(4, 4))
+		f, ax = plt.subplots(1, figsize=(6, 6))
 		amt_annuity = app['amt_annuity']
 		amt_income = app['amt_income_total']
 		labels = ['Remboursement', 'Revenus']

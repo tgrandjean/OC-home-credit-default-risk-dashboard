@@ -5,12 +5,9 @@ from .predict import Scorer
 from .home import Home
 from .explainer import ModelExplainer
 
+from .base import Component
 
-class MainMenu:
-
-	def __init__(self, API_URL, API_KEY):
-		self.API_KEY = API_KEY
-		self.API_URL = API_URL
+class MainMenu(Component):
 
 	@property
 	def pages(self):

@@ -5,17 +5,10 @@ import numpy as np
 import pandas as pd
 from matplotlib import colors
 
+from .base import Component
 
-class ModelExplainer:
 
-    def __init__(self, API_URL, API_KEY):
-        self.API_KEY = API_KEY
-        self.API_URL = API_URL
-
-    @property
-    def headers(self):
-        return {'Content-Type': 'application/json',
-                'Authorization': 'Token ' + self.API_KEY}
+class ModelExplainer(Component):
 
     @st.cache
     def _min_max_ids(self):
@@ -31,11 +24,6 @@ class ModelExplainer:
         res = requests.post(self.API_URL + '/explainer/',
                             data=json.dumps(data),
                             headers=self.headers)
-        return res.json()
-
-    def _fetch_application(self, id):
-        res = requests.get(self.API_URL + f'/applications/{id}',
-                           headers=self.headers)
         return res.json()
 
     @property
